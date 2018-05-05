@@ -1,0 +1,94 @@
+# IOM API
+## Board情報 [/api/boards/{id}]
+
+### Boardを取得する [GET]
++ Response 200 (application/json)
+
+                {
+            "error": null,
+            "board": {
+                "name": "my first board",
+                "description": "Sample description. Hello World!",
+                "tables": [
+                    {
+                        "id": 0,
+                        "name": "board1",
+                        "row": [
+                            {
+                                "id": 0,
+                                "task": "買い物に行く",
+                                "order": 2
+                            },
+                            {
+                                "id": 1,
+                                "task": "料理する",
+                                "order": 1
+                            },
+                            {
+                                "id": 3,
+                                "task": "勉強する",
+                                "order": 3
+                            }
+                        ],
+                        "column": [
+                            {
+                                "id": 0,
+                                "name": "status",
+                                "custom_name": "STATUS",
+                                "order": 0
+                            },
+                            {
+                                "id": 1,
+                                "name": "status",
+                                "custom_name": "Phase",
+                                "order": 2
+                            },
+                            {
+                                "id": 2,
+                                "name": "date",
+                                "custom_name": "Execution date",
+                                "order": 1
+                            },
+                            {
+                                "id": 3,
+                                "name": "time",
+                                "custom_name": "Time Est.",
+                                "order": 3
+                            }
+                        ],
+                        "item": [
+                            {
+                                "id": 0,
+                                "row_id": 0,
+                                "column_id": 0,
+                                "value": "Done"
+                            },
+                            {
+                                "id": 0,
+                                "row_id": 0,
+                                "column_id": 1,
+                                "value": "Done"
+                            },
+                            {
+                                "id": 0,
+                                "row_id": 0,
+                                "column_id": 3,
+                                "value": "2"
+                            },
+                            {
+                                "id": 0,
+                                "row_id": 0,
+                                "column_id": 1,
+                                "value": "Working on it"
+                            },
+                            {
+                                "id": 0,
+                                "row_id": 1,
+                                "column_id": 3,
+                                "value": "1.5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
