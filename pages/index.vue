@@ -1,28 +1,17 @@
 <template>
   <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        iom
-      </h1>
-      <h2 class="subtitle">
-        My first-rate Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
+    <div style="width: 140px; height: 35px;">
+      <StatusButton></StatusButton>
+      <StatusButton>Sample</StatusButton>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import StatusButton from '@/components/molecules/StatusButton.vue'
 
 export default {
-  components: {
-    Logo
-  }
+  components: { StatusButton }
 }
 </script>
 
