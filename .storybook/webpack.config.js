@@ -8,10 +8,6 @@ const genDefaultConfig = require('@storybook/vue/dist/server/config/defaults/web
 module.exports = (baseConfig, env) => {
   const config = genDefaultConfig(baseConfig, env);
 
-  function resolve(dir) {
-    return path.join(__dirname, '../vuejs/', dir);
-  }
-
   config.resolve.alias['@'] = rootPath
   config.resolve.alias['~'] = rootPath
 

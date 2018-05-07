@@ -52,6 +52,8 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'https://private-475fb3-iom1.apiary-mock.com',
+    browserBaseURL: '/',
   },
 
   /*
