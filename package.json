@@ -10,22 +10,36 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "storybook": "start-storybook -p 9001",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/bulma": "^1.0.3",
+    "@nuxtjs/font-awesome": "^1.0.3",
+    "@storybook/addon-knobs": "^3.4.3",
+    "@storybook/addon-notes": "^3.4.3",
     "express": "^4.15.3",
-    "nuxt": "npm:nuxt-edge"
+    "nuxt": "npm:nuxt-edge",
+    "storybook-addon-vue-info": "^0.2.0",
+    "vue-loader": "^14.2.2"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.3",
+    "@storybook/addon-links": "^3.4.3",
+    "@storybook/addons": "^3.4.3",
+    "@storybook/vue": "^3.4.3",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
+    "babel-preset-vue": "^2.0.2",
     "cross-env": "^5.0.1",
     "eslint": "^4.15.0",
     "eslint-loader": "^2.0.0",
     "eslint-plugin-vue": "^4.0.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.11.0",
-    "sass-loader": "^7.0.1"
+    "sass-loader": "^7.0.1",
+    "storybook-readme": "^3.3.0"
   }
 }
