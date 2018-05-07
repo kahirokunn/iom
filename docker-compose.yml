@@ -1,0 +1,27 @@
+version: '3.0'
+services:
+  nuxt:
+    image: node:9.8.0-slim
+    volumes:
+      - .:/var/opt/app
+    working_dir: /var/opt/app
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    entrypoint: bash -c
+    command: |
+      "yarn install && yarn dev"
+
+  storybook:
+    image: node:9.8.0-slim
+    volumes:
+      - .:/var/opt/app
+    working_dir: /var/opt/app
+    expose:
+      - "9001"
+    ports:
+      - "9001:9001"
+    entrypoint: bash -c
+    command: |
+      "yarn install && yarn storybook"
