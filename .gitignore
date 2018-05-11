@@ -12,3 +12,9 @@ dist
 
 # yarn
 yarn-error.log
+
+# pwa
+sw.*
+
+.idea
+.DS_Store

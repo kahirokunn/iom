@@ -4,7 +4,7 @@
       <div class="c-a-status-button-add-note" :style="{ '--size': `${mySize}px` }"></div>
       <i class="fa fa-plus menu-dog-ear-color-0" :style="{ color }" v-show="isFocus"></i>
     </div>
-    <div class="c-a-status-button-context center"><slot/></div>
+    <div class="c-a-status-button-context center-nowrap"><slot/></div>
   </div>
 </template>
 

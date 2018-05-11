@@ -10,6 +10,7 @@ module.exports = (baseConfig, env) => {
 
   config.resolve.alias['@'] = rootPath
   config.resolve.alias['~'] = rootPath
+  config.resolve.alias['~assets'] = `${rootPath}/assets`
 
   return updateWebpackConfig(config);
 };

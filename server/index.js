@@ -1,6 +1,6 @@
 
 const express = require('express')
-const { Nuxt, Builder } = require('nuxt')
+const { Nuxt, Builder } = require('nuxt-edge')
 const app = express()
 const host = process.env.HOST || '0.0.0.0'
 const port = process.env.PORT || 3000
@@ -28,4 +28,5 @@ async function start() {
   app.listen(port, host)
   console.log('Server listening on http://' + host + ':' + port) // eslint-disable-line no-console
 }
-start()
+start(
+)

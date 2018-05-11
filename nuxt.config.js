@@ -8,15 +8,22 @@ module.exports = {
   */
   head: {
     title: pkg.name,
+    htmlAttrs: {
+      lang: 'ja',
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { property: "twitter:card", content: "summary_large_image" },
+      { property: "twitter:site", content: "@nuxt_js" },
+      { hid: 'description', name: 'description', content: pkg.description },
+      {
+        property: 'og:image',
+        content: 'http://www.kahirookina.com/ogp.jpg',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto' },
-      { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.12/css/all.css' }
     ],
   },
 
@@ -29,7 +36,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/main.scss'
+    '~assets/stylesheet/style.scss'
   ],
 
   /*
@@ -45,15 +52,24 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma'
+    '@nuxtjs/bulma',
+    // Doc: https://github.com/nuxt-community/modules
+    '@nuxtjs/font-awesome',
+    // Doc: https://github.com/nuxt-community/pwa-module
+    '@nuxtjs/pwa',
+    // Doc: https://github.com/nuxt-community/modules/tree/master/packages/toast
+    '@nuxtjs/toast',
   ],
   /*
   ** Axios module configuration
   */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-    baseURL: 'https://private-475fb3-iom1.apiary-mock.com',
-    browserBaseURL: '/',
+  axios: { proxy: true },
+  toast: { position: 'top-center' },
+
+  proxy: {
+    '/api': {
+      target: 'https://private-475fb3-iom1.apiary-mock.com/',
+    }
   },
 
   /*
@@ -83,5 +99,29 @@ module.exports = {
         })
       }
     }
-  }
+  },
+
+  manifest: {
+    name: 'iom',
+    description: 'Internet of management',
+    theme_color: '#188269',
+    short_name: 'testapp',
+  },
+
+  //開発環境でもPWAできるように
+  workbox: {
+    dev: true,
+  },
+
+  render: {
+    http2: { push: true },
+    static: {
+      maxAge: '1h',
+      setHeaders(res, path) {
+        if (path.includes('sw.js')) {
+          res.setHeader('Cache-Control', `public, max-age=${15 * 60}`)
+        }
+      },
+    },
+  },
 }

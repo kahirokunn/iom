@@ -1,8 +1,7 @@
 <template>
   <section class="container">
     <div style="width: 140px; height: 35px;">
-      <StatusButton></StatusButton>
-      <StatusButton>Sample</StatusButton>
+      <StatusButton color="black">Sample</StatusButton>
     </div>
   </section>
 </template>
