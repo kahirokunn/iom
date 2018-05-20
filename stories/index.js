@@ -5,7 +5,7 @@ import { withNotes } from '@storybook/addon-notes'
 import { withReadme, withDocs, doc } from 'storybook-readme'
 import SimpleStatusButton from '@/components/atoms/StatusButton.vue'
 import StatusButton from '@/components/molecules/StatusButton.vue'
-import NewStatusPicker from '@/components/organisms/NewStatusPicker.vue'
+import StatusPicker from '@/components/organisms/StatusPicker.vue'
 import MoleculesCatalog from '@/stories/molecules/catalog.md'
 import '!style-loader!css-loader!~assets/stylesheet/style.scss'
 
@@ -40,4 +40,10 @@ storiesOf('Molecules', module)
         <StatusButton color="blue" :size="size">Long Text 1 2 3 4 5 6 7 8 9 0</StatusButton>
       </div>
     </div>`,
-  }));
+  }))
+
+storiesOf('Organisms', module)
+  .add('catalog', () => ({
+    components: { StatusPicker },
+    template: '<StatusPicker/>',
+  }))

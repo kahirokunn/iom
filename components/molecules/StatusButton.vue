@@ -1,16 +1,31 @@
 <template>
-  <div class="c-a-status-button" :style="{ 'background-color': color }" @click="$emit('click', true)" @mouseenter="mySize = size" @mouseleave="mySize = 0">
-    <div @mouseenter="focus()" @mouseleave="blur()" @click="isClicked = true">
+  <div
+    class="c-a-status-button"
+    :style="{ 'background-color': color }"
+    @click="$emit('click', true)"
+    @mouseenter="!isKeepOpen && enter()"
+    @mouseleave="!isKeepOpen && leave()"
+    v-click-outside="close"
+  >
+    <div
+      @mouseenter="!isKeepOpen && focus()"
+      @mouseleave="!isKeepOpen && blur()"
+      @click="KeepOpen()"
+    >
       <div class="c-a-status-button-add-note" :style="{ '--size': `${mySize}px` }"></div>
       <i class="fa fa-plus menu-dog-ear-color-0" :style="{ color }" v-show="isFocus"></i>
+
     </div>
-    <div class="c-a-status-button-context center-nowrap"><slot/></div>
+    <div class="c-a-status-button-context"><slot/></div>
   </div>
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
+
 export default {
   name: 'StatusButton',
+  directives: { ClickOutside },
   props: {
     color: {
       type: String,
@@ -18,43 +33,50 @@ export default {
     },
     size: {
       type: Number,
-      default: 12
+      default: 12,
     },
-    continue: {
-      type: Boolean,
-      default: false
-    }
   },
   data() {
     return {
       mySize: 0,
       isFocus: false,
-      open: false
+      open: false,
+      isKeepOpen: false,
     }
   },
   watch: {
     size(val) { this.mySize = val },
-    continue(val, oldVal) {
-      // true => falseにスイッチされたら、focusを外す
-      if (!val && oldVal !== val) this.isFocus = false
-    }
   },
   methods: {
+    enter() {
+      this.mySize = this.size
+    },
+    KeepOpen() {
+      this.isKeepOpen = true
+    },
+    close() {
+      this.isKeepOpen = false
+      this.leave()
+    },
     focus() {
-      this.mySize = this.size * 1.5;
-      this.isFocus = true;
+      this.mySize = this.size * 1.5
+      this.isFocus = true
     },
     blur() {
-      this.mySize = this.size;
-      if (!this.continue) this.isFocus = false;
-    }
-  }
+      this.mySize = this.size
+    },
+    leave() {
+      this.mySize = 0
+      this.isFocus = false
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .c-a-status-button-add-note {
   --size: 12px;
+
   position: absolute;
   top: 0;
   right: 0;
@@ -73,20 +95,32 @@ export default {
 }
 
 .c-a-status-button {
+  --height: 32px;
+
   position: relative;
   height: 100%;
   cursor: pointer;
   user-select: none;
-}
 
-.c-a-status-button-context {
-  height: 100%;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  padding: 0 5px;
-  color: #fff;
-  border-radius: 0;
-  text-align: center;
-  font-size: 12px;
+  &:hover {
+    transition: filter 0.3s ease;
+    filter: opacity(70%);
+  }
+
+  .c-a-status-button-context {
+    height: 100%;
+    line-height: var(--height);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 0 5px;
+    color: #fff;
+    border-radius: 0;
+    text-align: center;
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: baseline;
+  }
 }
 </style>
