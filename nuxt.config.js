@@ -23,6 +23,7 @@ module.exports = {
       },
     ],
     link: [
+      { rel: 'srylesheet', href: 'https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
     ],
   },
