@@ -11,7 +11,7 @@ services:
       - "3000:3000"
     entrypoint: bash -c
     command: |
-      "yarn install && yarn dev"
+      "yarn dev"
 
   storybook:
     image: node:9.8.0-slim

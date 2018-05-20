@@ -55,6 +55,8 @@ module.exports = {
     '@nuxtjs/bulma',
     // Doc: https://github.com/nuxt-community/modules
     '@nuxtjs/font-awesome',
+    // Doc: https://www.npmjs.com/package/@nuxtjs/onesignal
+    '@nuxtjs/onesignal',
     // Doc: https://github.com/nuxt-community/pwa-module
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/modules/tree/master/packages/toast
@@ -88,9 +90,9 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
+    extend(config, { isDev }) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (isDev && process.client) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -103,15 +105,26 @@ module.exports = {
 
   manifest: {
     name: 'iom',
+    short_name: 'iom',
+    title: 'iom',
+    'og:title': 'iom',
+    'og:description': 'iom',
     description: 'Internet of management',
-    theme_color: '#188269',
-    short_name: 'testapp',
+    lang: 'ja',
+    theme_color: '#ffffff',
+    background_color: '#ffffff',
+  },
+
+  oneSignal: {
+    init: {
+      appId: process.env.ONE_SIGNAL_APP_ID,
+      allowLocalhostAsSecureOrigin: true,
+      welcomeNotification: { disable: true },
+    },
   },
 
   //開発環境でもPWAできるように
-  workbox: {
-    dev: true,
-  },
+  workbox: { dev: true },
 
   render: {
     http2: { push: true },

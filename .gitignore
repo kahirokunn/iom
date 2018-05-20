@@ -18,3 +18,6 @@ sw.*
 
 .idea
 .DS_Store
+
+OneSignalSDKWorker.js
+OneSignalSDKUpdaterWorker.js
