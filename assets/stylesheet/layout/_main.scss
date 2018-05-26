@@ -217,3 +217,12 @@ video {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+input[type="text"], input[type="password"], select {
+  background-color: #fff;
+  border: 1px solid;
+  border-color: #cccccc #e2e2e2 #e2e2e2 #cccccc;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 2px 0px 3px 6px;
+}
