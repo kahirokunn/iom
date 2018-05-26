@@ -2,36 +2,48 @@
 <div :style="{ width }" class="new-status-picker-wrapper">
   <div class="status-picker--colors switched">
     <div
+      v-for="(status, i) in statusList"
+      :key="i"
       class="new-status-picker--color-option"
-      v-for="button in buttonList"
-      :key="button.id || button.color"
     >
       <InputStatus
-        :color="button.color"
-        v-model="button.name"
+        :color="status.color"
+        v-model="status.name"
+        @delete="$emit('delete', status.id)"
+        @change="$emit('change', status)"
+        :enable="status.canDelete"
         class="input-status"
-        @delete="$emit('delete', button.id)"
-        :enable="button.canDelete"
         hasDelete
       />
+    </div>
+    <div v-if="myColors.length > 0">
+      <div class="new-status-picker--color-option more-colors">
+        <div
+          :style="{ 'background-color': focusingColor }"
+          class="more-colors-background"
+        ></div>
+      </div>
     </div>
   </div>
 
   <div
     v-if="myColors.length > 0"
+    :class="{ animation }"
     class="status-picker--add-new-color"
   >
     <PlusCircleButton
-      v-for="color in colors"
-      @click="$emit('add', color)"
+      v-for="color in myColors"
       :key="color"
       :color="color"
+      @click="addStatus(color)"
+      @focus="focus(color)"
+      @blur="blur()"
       class="status-picker--add-status-icon"
     />
   </div>
 
   <div
-    @click="$emit('submit')"
+    @click="$emit('click')"
     class="status-picker--edit-labels"
   >Apply</div>
 </div>
@@ -48,7 +60,7 @@ export default {
   name: 'StatusPicker',
   components: { StatusButton, PlusCircleButton, InputStatus },
   props: {
-    buttons: {
+    statuses: {
       type: Array,
       default: () => ([]),
     },
@@ -56,36 +68,64 @@ export default {
       type: Array,
       default: () => ([]),
     },
+    animation: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
-    buttons(newButtons) { this.myButtons = newButtons },
+    statuses(newStatus) { this.myStatuses = newStatus },
     colors(newColors) { this.myColors = newColors },
   },
   data() {
     return {
-      isFocus: false,
-      myButtons: this.buttons,
+      focusingColor: '#fff',
+      myStatuses: this.statuses,
       myColors: this.colors,
     }
   },
   methods: {
-    focus() {
-      this.isFocus = true;
+    focus(color) {
+      this.focusingColor = color
     },
     blur() {
-      this.isFocus = false;
+      this.focusingColor = '#fff'
+    },
+    addStatus(targetColor) {
+      const lastIndex = this.myStatuses.length - 1
+      let order = 1
+      if (lastIndex) order = this.myStatuses[lastIndex].order + 1
+
+      const status = {
+        order,
+        name: '',
+        color: targetColor,
+        canDelete: true,
+      }
+      this.myStatuses.push(status)
+      this.$emit('change', status)
+      this.myColors = this.myColors.filter(color => color !== targetColor)
+    },
+    deleteStatus(status) {
+      const index = this.myStatuses.findIndex(myStatus => myStatus === status)
+
     },
   },
   computed: {
-    buttonList() {
-      return [...this.myButtons].sort(button => button.order)
+    statusList() {
+      return _.sortBy(this.myStatuses, status => status.order)
     },
     width() {
-      const width = 120;
-      const maxRow = 4;
-      const padding = 16;
-      if (this.buttonList.length < maxRow) return `${width}px`
-      return `${Math.ceil(this.buttonList.length / 4) * width + padding * 2}px`
+      const padding = 16
+      const width = 120
+      const maxRow = 4
+      const marginRight = 8
+      const addNewStatusNumber = this.myColors.length ? 1 : 0
+      const itemNumber = this.statusList.length + addNewStatusNumber
+      const columnNumber = Math.ceil(itemNumber / maxRow) || 1
+      let addMargin = 0
+      if (columnNumber > 1) addMargin = marginRight * (columnNumber - 1)
+      return `${((columnNumber * width) + padding * 2) + addMargin}px`
     },
   },
 }
@@ -105,7 +145,6 @@ export default {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,.32);
   border-radius: 4px;
   font-size: 13px;
-  transition: width .2s,height 2s;
   pointer-events: all;
 
   &:before {
@@ -192,5 +231,18 @@ export default {
     opacity: 1;
     transform: none;
   }
+}
+
+.more-colors {
+  pointer-events: none;
+}
+
+.more-colors-background {
+  transition: background-color .2s ease-in;
+  border-radius: 2px;
+  width: 104px;
+  height: 32px;
+  color: #c4c4c4;
+  border: 1px dotted #c4c4c4;
 }
 </style>
