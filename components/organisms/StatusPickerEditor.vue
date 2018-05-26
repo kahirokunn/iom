@@ -9,7 +9,7 @@
       <InputStatus
         :color="status.color"
         v-model="status.name"
-        @delete="$emit('delete', status.id)"
+        @delete="remove(status)"
         @change="$emit('change', status)"
         :enable="status.canDelete"
         class="input-status"
@@ -62,11 +62,11 @@ export default {
   props: {
     statuses: {
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
     colors: {
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
     animation: {
       type: Boolean,
@@ -106,9 +106,11 @@ export default {
       this.$emit('change', status)
       this.myColors = this.myColors.filter(color => color !== targetColor)
     },
-    deleteStatus(status) {
-      const index = this.myStatuses.findIndex(myStatus => myStatus === status)
+    remove(targetStatus) {
+      this.myStatuses = this.myStatuses
+        .filter(status => !(status.id === targetStatus.id && status.color === targetStatus.color))
 
+      this.$emit('delete', targetStatus)
     },
   },
   computed: {

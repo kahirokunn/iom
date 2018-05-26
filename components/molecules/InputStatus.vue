@@ -17,7 +17,7 @@
   >
   <span class="center" v-if="hasDelete">
     <i
-      @click="$emit('delete')"
+      @click="enable && $emit('delete')"
       :class="{ 'is-enabled': enable }"
       class="color-delete-button fas fa-times-circle"
     ></i>
