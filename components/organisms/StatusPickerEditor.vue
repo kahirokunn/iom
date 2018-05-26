@@ -57,7 +57,7 @@ import PlusCircleButton from '@/components/atoms/PlusCircleButton.vue'
 
 
 export default {
-  name: 'StatusPicker',
+  name: 'StatusPickerEditor',
   components: { StatusButton, PlusCircleButton, InputStatus },
   props: {
     statuses: {

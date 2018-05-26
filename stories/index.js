@@ -9,7 +9,7 @@ import PlusCircleButton from '@/components/atoms/PlusCircleButton.vue'
 import StatusButton from '@/components/molecules/StatusButton.vue'
 import InputStatus from '@/components/molecules/InputStatus.vue'
 import StatusPicker from '@/components/organisms/StatusPicker.vue'
-import StatusPickerEditer from '@/components/organisms/StatusPickerEditer.vue'
+import StatusPickerEditor from '@/components/organisms/StatusPickerEditor.vue'
 import StatusPickerPrincipal from '@/components/organisms/StatusPickerPrincipal.vue'
 import MoleculesCatalog from '@/stories/molecules/catalog.md'
 import config from '@/constants/config'
@@ -60,7 +60,7 @@ storiesOf('Organisms', module)
   .add('catalog', () => ({
     components: {
       StatusPicker,
-      StatusPickerEditer,
+      StatusPickerEditor,
       StatusPickerPrincipal,
     },
     data: () => ({
@@ -86,7 +86,7 @@ storiesOf('Organisms', module)
 
       <hr style="margin: 20px 0">
       <div class="center">
-        <StatusPickerEditer
+        <StatusPickerEditor
           :statuses="statuses"
           :colors="colors"
         />

@@ -1,5 +1,5 @@
 <template>
-<StatusPickerEditer
+<StatusPickerEditor
   v-if="isEditing"
   :statuses="myStatuses"
   :colors="myColors"
@@ -19,12 +19,12 @@
 
 <script>
 import StatusPicker from '@/components/organisms/StatusPicker.vue'
-import StatusPickerEditer from '@/components/organisms/StatusPickerEditer.vue'
+import StatusPickerEditor from '@/components/organisms/StatusPickerEditor.vue'
 import { colors } from '@/constants/config'
 
 export default {
   name: 'StatusPickerPrincipal',
-  components: { StatusPicker, StatusPickerEditer },
+  components: { StatusPicker, StatusPickerEditor },
   props: {
     statuses: {
       type: Array,
