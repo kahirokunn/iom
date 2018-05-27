@@ -1,7 +1,7 @@
 <template>
 <StatusPickerEditor
   v-if="isEditing"
-  :statuses="myStatuses"
+  :statuses="statusList"
   :colors="myColors"
   @click="toggle()"
   @change="changeStatus"
@@ -11,14 +11,15 @@
 />
 <StatusPicker
   v-else
-  :statuses="myStatuses"
+  :statuses="statusList"
   @click="toggle()"
-  @submit="status => { $emit('submit', status) }"
+  @submit="$emit('submit')"
   :animation="animation"
 />
 </template>
 
 <script>
+import _ from 'lodash'
 import StatusPicker from '@/components/organisms/StatusPicker.vue'
 import StatusPickerEditor from '@/components/organisms/StatusPickerEditor.vue'
 import config from '@/constants/config'
@@ -52,15 +53,18 @@ export default {
       const colorList = this.myStatuses.map(status => status.color)
       return this.colors.filter(color => !colorList.includes(color))
     },
+    statusList() {
+      return _.sortBy(this.myStatuses, status => status.order)
+    },
   },
   methods: {
     remove(targetStatus) {
       this.myStatuses = this.myStatuses
-        .filter(status => !(status.id === targetStatus.id && status.color === targetStatus.color))
-
-      this.$emit('delete', status)
+        .filter(status => !(status.id === targetStatus.id &&status.color === targetStatus.color))
+      this.$emit('change', this.myStatuses)
     },
-    changeStatus(status) {
+    changeStatus(statuses) {
+      this.myStatuses = statuses
       this.$emit('change', this.myStatuses)
     },
     selectStatus(id) {

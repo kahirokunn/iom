@@ -1,6 +1,9 @@
 <template>
 <div class="status-picker--color-option editing" style="position: relative;">
-  <div class="status-picker--drag-handle filter">
+  <div
+    :class="{ animation }"
+    class="status-picker--drag-handle filter"
+  >
     <div
       class="color-option-box fas fa-ellipsis-v center"
       :style="{ 'background-color': color }"
@@ -57,6 +60,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    animation: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {
     value(newValue) {
@@ -105,6 +112,9 @@ export default {
 
 .status-picker--drag-handle.filter {
   position: absolute;
+}
+
+.status-picker--drag-handle.animation {
   animation: show .55s;
 }
 

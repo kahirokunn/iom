@@ -3,7 +3,7 @@
   <div class="status-picker--colors">
     <div
       class="new-status-picker--color-option viewing"
-      v-for="status in statusList"
+      v-for="status in statuses"
       :key="status.id"
     >
       <StatusButton
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import StatusButton from '@/components/atoms/StatusButton.vue'
 
 export default {
@@ -49,15 +48,12 @@ export default {
     },
   },
   computed: {
-    statusList() {
-      return _.sortBy(this.statuses, status => status.order)
-    },
     width() {
       const padding = 16
       const width = 120
       const maxRow = 4
       const marginRight = 8
-      const itemNumber = this.statusList.length
+      const itemNumber = this.statuses.length
       const columnNumber = Math.ceil(itemNumber / maxRow) || 1
       let addMargin = 0
       if (columnNumber > 1) addMargin = marginRight * (columnNumber - 1)
@@ -78,6 +74,7 @@ export default {
   font-size: 13px;
   transition: width .2s,height 2s;
   pointer-events: all;
+  transition: width 0.3s;
 }
 
 .status-picker-wrapper:before {

@@ -1,22 +1,31 @@
 <template>
 <div :style="{ width }" class="new-status-picker-wrapper">
-  <div class="status-picker--colors switched">
+  <draggable
+    :list="myStatuses"
+    :options="{ group: 'statuses', handle: '.status-picker--drag-handle' }"
+    class="status-picker--colors switched"
+    :move="() => { dragging = true }"
+    v-model="myStatuses"
+    @update="updateStatusesOrder()"
+    @end="dragging = false"
+  >
     <div
-      v-for="(status, i) in statusList"
-      :key="i"
+      v-for="status in myStatuses"
+      :key="status.id"
       class="new-status-picker--color-option"
     >
       <InputStatus
         :color="status.color"
         v-model="status.name"
         @delete="remove(status)"
-        @change="$emit('change', status)"
+        @change="$emit('change', myStatuses)"
         :enable="status.canDelete"
         class="input-status"
         hasDelete
+        :animation="!isAnimationFinished"
       />
     </div>
-    <div v-if="myColors.length > 0">
+    <div v-if="myColors.length > 0 && !dragging">
       <div class="new-status-picker--color-option more-colors">
         <div
           :style="{ 'background-color': focusingColor }"
@@ -24,7 +33,7 @@
         ></div>
       </div>
     </div>
-  </div>
+  </draggable>
 
   <div
     v-if="myColors.length > 0"
@@ -50,15 +59,20 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import StatusButton from '@/components/atoms/StatusButton.vue'
 import InputStatus from '@/components/molecules/InputStatus.vue'
 import PlusCircleButton from '@/components/atoms/PlusCircleButton.vue'
+import draggable from 'vuedraggable'
 
 
 export default {
   name: 'StatusPickerEditor',
-  components: { StatusButton, PlusCircleButton, InputStatus },
+  components: {
+    StatusButton,
+    PlusCircleButton,
+    InputStatus,
+    draggable,
+  },
   props: {
     statuses: {
       type: Array,
@@ -80,9 +94,16 @@ export default {
   data() {
     return {
       focusingColor: '#fff',
-      myStatuses: this.statuses,
       myColors: this.colors,
+      dragging: false,
+      isAnimationFinished: false,
+      myStatuses: this.statuses,
     }
+  },
+  created() {
+    setTimeout(() => {
+      this.isAnimationFinished = true
+    }, 700)
   },
   methods: {
     focus(color) {
@@ -103,8 +124,16 @@ export default {
         canDelete: true,
       }
       this.myStatuses.push(status)
-      this.$emit('change', status)
+      this.$emit('change', this.myStatuses)
       this.myColors = this.myColors.filter(color => color !== targetColor)
+      this.blur()
+    },
+    updateStatusesOrder() {
+      this.myStatuses = this.myStatuses.map((status, i) => ({
+        ...status,
+        order: i,
+      }))
+      this.$emit('change', this.myStatuses)
     },
     remove(targetStatus) {
       this.myStatuses = this.myStatuses
@@ -114,16 +143,13 @@ export default {
     },
   },
   computed: {
-    statusList() {
-      return _.sortBy(this.myStatuses, status => status.order)
-    },
     width() {
       const padding = 16
       const width = 120
       const maxRow = 4
       const marginRight = 8
       const addNewStatusNumber = this.myColors.length ? 1 : 0
-      const itemNumber = this.statusList.length + addNewStatusNumber
+      const itemNumber = this.myStatuses.length + addNewStatusNumber
       const columnNumber = Math.ceil(itemNumber / maxRow) || 1
       let addMargin = 0
       if (columnNumber > 1) addMargin = marginRight * (columnNumber - 1)
@@ -137,6 +163,10 @@ export default {
 .input-status {
   width: 120px;
   height: 32px;
+  &:hover {
+    opacity: 1;
+
+  }
 }
 
 .new-status-picker-wrapper {
@@ -148,6 +178,7 @@ export default {
   border-radius: 4px;
   font-size: 13px;
   pointer-events: all;
+  transition: width 0.3s;
 
   &:before {
     border-color: hsla(0, 0%, 88%, 0);
@@ -227,12 +258,14 @@ export default {
   border-radius: 2px;
   color: #fff;
   cursor: pointer;
-  transition: transform .1s ease-in-out,opacity .1s ease-in-out;
+}
 
-  &:hover {
-    opacity: 1;
-    transform: none;
-  }
+.sortable-drag {
+  opacity: 1;
+}
+
+.sortable-ghost {
+  opacity: .12;
 }
 
 .more-colors {

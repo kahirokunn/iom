@@ -51,7 +51,7 @@ storiesOf('Molecules', module)
         <StatusButton color="blue" :size="size">Long Text 1 2 3 4 5 6 7 8 9 0</StatusButton>
       </div>
       <div style="width: 140px; height: 35px;">
-        <InputStatus color="blue"/>
+        <InputStatus color="blue" animation/>
       </div>
     </div>`,
   }))
@@ -65,11 +65,11 @@ storiesOf('Organisms', module)
     },
     data: () => ({
       statuses: [
-        { id: 0, order: 2, name: 'Done', color: 'rgb(0, 200, 117)' },
-        { id: 1, order: 3, name: 'Working on it', color: 'rgb(253, 171, 61)' },
-        { id: 2, order: 1, name: 'Stuck', color: 'rgb(226, 68, 92)' },
-        { id: 3, order: 4, name: 'Waiting for Approval', color: 'rgb(0, 200, 117)' },
-        { id: 4, order: 5, name: '', color: 'rgb(196, 196, 196)' },
+        { id: 0, order: 2, canDelete: true, name: 'Done', color: 'rgb(0, 200, 117)' },
+        { id: 1, order: 3, canDelete: true, name: 'Working on it', color: 'rgb(253, 171, 61)' },
+        { id: 2, order: 1, canDelete: true, name: 'Stuck', color: 'rgb(226, 68, 92)' },
+        { id: 3, order: 4, canDelete: true, name: 'Waiting for Approval', color: 'rgb(0, 200, 117)' },
+        { id: 4, order: 5, canDelete: true, name: '', color: 'rgb(196, 196, 196)' },
       ],
       colors: config.colors,
     }),
