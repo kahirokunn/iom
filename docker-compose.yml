@@ -6,12 +6,12 @@ services:
       - .:/var/opt/app
     working_dir: /var/opt/app
     expose:
-      - "3000"
+      - "4000"
     ports:
-      - "3000:3000"
+      - "4000:3000"
     entrypoint: bash -c
     command: |
-      "yarn dev"
+      "yarn install && yarn dev"
 
   storybook:
     image: node:9.8.0-slim
@@ -19,9 +19,9 @@ services:
       - .:/var/opt/app
     working_dir: /var/opt/app
     expose:
-      - "9001"
+      - "9002"
     ports:
-      - "9001:9001"
+      - "9002:9001"
     entrypoint: bash -c
     command: |
       "yarn install && yarn storybook"

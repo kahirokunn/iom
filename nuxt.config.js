@@ -80,6 +80,9 @@ module.exports = {
   */
   build: {
     postcss: {
+      babel: {
+        presets: ["env", "vue", "stage-3"]
+      },
       plugins: {
         'postcss-cssnext': {
           features: {

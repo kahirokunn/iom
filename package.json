@@ -12,7 +12,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "start-storybook": "start-storybook -p 9001",
-    "storybook": "nodemon --watch .babelrc --watch .storybook/*.js --watch .storybook/*.html -x 'yarn start-storybook'",
+    "storybook": "nodemon --watch .babelrc --watch .storybook/*.js --watch .storybook/*.mjs --watch .storybook/*.html -x 'yarn start-storybook'",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "@storybook/vue": "^3.4.3",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-vue": "^2.0.2",
     "cross-env": "^5.0.1",
     "eslint": "^4.15.0",
