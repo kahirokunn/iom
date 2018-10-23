@@ -1,4 +1,4 @@
-# storybook on Netlifyで静的ホスティング
+# storybook on Netlifyで静的ホスティング2
 
 ## Build Setup
 
