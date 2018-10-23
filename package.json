@@ -13,7 +13,8 @@
     "precommit": "npm run lint",
     "start-storybook": "start-storybook -p 9001",
     "storybook": "nodemon --watch .babelrc --watch .storybook/*.js --watch .storybook/*.mjs --watch .storybook/*.html -x 'yarn start-storybook'",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "ss": "nodemon --watch .babelrc --watch storybook-static/* --watch storybook-static/**/* -x 'node server.js'"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",

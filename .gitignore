@@ -19,5 +19,7 @@ sw.*
 .idea
 .DS_Store
 
+storybook-static
+
 OneSignalSDKWorker.js
 OneSignalSDKUpdaterWorker.js
