@@ -1,6 +1,4 @@
-# iom
-
-> My first-rate Nuxt.js project
+# storybook on Netlifyで静的ホスティング
 
 ## Build Setup
 
